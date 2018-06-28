@@ -1,0 +1,6 @@
+framework module CoreBluetoothExtension {
+  umbrella header "CoreBluetoothExtension-umbrella.h"
+
+  export *
+  module * { export * }
+}

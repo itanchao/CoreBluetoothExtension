@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CoreBluetoothExtension_Example' do
+  pod 'CoreBluetoothExtension', :path => '../'
+
+  target 'CoreBluetoothExtension_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase' , '~> 2.1.4'
+  end
+end

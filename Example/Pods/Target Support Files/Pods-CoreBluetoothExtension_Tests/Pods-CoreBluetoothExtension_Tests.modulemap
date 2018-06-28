@@ -1,0 +1,6 @@
+framework module Pods_CoreBluetoothExtension_Tests {
+  umbrella header "Pods-CoreBluetoothExtension_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
