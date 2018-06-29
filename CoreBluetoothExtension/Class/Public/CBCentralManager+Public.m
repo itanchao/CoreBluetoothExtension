@@ -14,7 +14,7 @@
 #import <ReactiveObjC/NSObject+RACSelectorSignal.h>
 @implementation CBCentralManager (Public)
 + (instancetype)newCentral{
-     return [[self alloc] initWithDelegate:CBCentralManagerDelegate.sharedDelegate queue:dispatch_queue_create("com.MobikeCoreBluetooth.queue.ble", DISPATCH_QUEUE_SERIAL)];
+     return [[self alloc] initWithDelegate:CBCentralManagerDelegate.sharedDelegate queue:dispatch_queue_create("com.ble.queue.ble", DISPATCH_QUEUE_SERIAL)];
 }
 - (CBCentralManager *)scanForPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs options:(NSDictionary<NSString *,id> *)options duration:(NSTimeInterval)duration responseBlock:(void (^)(CBPeripheral *, NSDictionary<NSString *,id> *, NSNumber *, NSError *))responseBlock complete:(void (^)(void))complete{
     // 设置代理

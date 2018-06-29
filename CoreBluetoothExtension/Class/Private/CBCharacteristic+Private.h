@@ -1,6 +1,6 @@
 //
 //  CBCharacteristic+Private.h
-//  MobikeCoreBluetooth
+//  pods
 //
 //  Created by 谈超 on 2018/6/20.
 //
