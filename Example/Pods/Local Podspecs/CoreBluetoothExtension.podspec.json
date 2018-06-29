@@ -1,6 +1,6 @@
 {
   "name": "CoreBluetoothExtension",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "summary": "A simple Extension for CoreBluetooth.",
   "description": "A simple Extension of CoreBluetooth.",
   "homepage": "https://github.com/itanchao/CoreBluetoothExtension",
@@ -13,14 +13,13 @@
   },
   "source": {
     "git": "https://github.com/itanchao/CoreBluetoothExtension.git",
-    "tag": "0.3.0"
+    "tag": "0.5.0"
   },
   "platforms": {
     "ios": "8.0"
   },
   "source_files": "CoreBluetoothExtension/Class/**/*{.h,.m}",
   "public_header_files": "CoreBluetoothExtension/Class/Public/**/*.h",
-  "private_header_files": "CoreBluetoothExtension/Class/Private/**/*.h",
   "dependencies": {
     "ReactiveObjC": [
 

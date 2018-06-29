@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@interface WeakObject : NSObject
+@interface DeallocActionObject : NSObject
 @property (nonatomic, copy) void (^deallocBlock)(void);
 - (instancetype)initWithDeallocBlock:(void(^)(void))block;
 @end

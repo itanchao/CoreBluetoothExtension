@@ -7,7 +7,7 @@
 
 #import "CBPeripheral+Private.h"
 #import <objc/runtime.h>
-#import "WeakObject.h"
+#import "DeallocActionObject.h"
 @implementation CBPeripheral (Private)
 - (NSMutableDictionary<NSString *,void (^)(CBService *)> *)discoverServiceClosures{
     NSMutableDictionary *dic = objc_getAssociatedObject(self, _cmd);
@@ -34,7 +34,7 @@
     objc_setAssociatedObject(self, @selector(disconnectClosure), disconnectClosure, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 - (void)setCentralManager:(CBCentralManager *)centralManager{
-    WeakObject *ob = [[WeakObject alloc] initWithDeallocBlock:^{
+    DeallocActionObject *ob = [[DeallocActionObject alloc] initWithDeallocBlock:^{
         objc_setAssociatedObject(self, @selector(centralManager), nil, OBJC_ASSOCIATION_ASSIGN);
     }];
     // 这里关联的key必须唯一，如果使用_cmd，对一个对象多次关联的时候，前面的对象关联会失效。

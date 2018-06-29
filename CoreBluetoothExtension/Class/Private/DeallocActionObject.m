@@ -5,8 +5,8 @@
 //  Created by 谈超 on 2018/6/15.
 //
 
-#import "WeakObject.h"
-@implementation WeakObject
+#import "DeallocActionObject.h"
+@implementation DeallocActionObject
 - (instancetype)initWithDeallocBlock:(void (^)(void))block{
     self = [super init];
     if (self) {
