@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'CoreBluetoothExtension'
-  s.version          = '0.6.0'
+  s.version          = '0.6.1'
   s.summary          = 'A simple Extension for CoreBluetooth.'
   s.description      = <<-DESC
     A simple Extension of CoreBluetooth.
