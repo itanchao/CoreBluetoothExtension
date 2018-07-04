@@ -12,8 +12,8 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/itanchao/CoreBluetoothExtension.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '8.0'
-
-s.source_files = 'CoreBluetoothExtension/Class/**/*{.h,.m}'
+  s.watchos.deployment_target = '4.0'
+  s.source_files = 'CoreBluetoothExtension/Class/**/*{.h,.m}'
   s.public_header_files = 'CoreBluetoothExtension/Class/Public/**/*.h'
   s.dependency 'ReactiveObjC'
 end
