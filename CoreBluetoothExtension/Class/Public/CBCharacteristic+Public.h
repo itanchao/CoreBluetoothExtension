@@ -15,7 +15,7 @@
  @param sucess 订阅回调
  @return CBCharacteristic
  */
-- (instancetype)notify:(void(^)(BOOL sucess))sucess;
+- (nonnull instancetype)notify:(nonnull void(^)(BOOL sucess))sucess;
 
 /**
  发送
@@ -26,7 +26,7 @@
  @param sucess 回调
  @return CBCharacteristic
  */
-- (instancetype)sendMessage:(NSData *)message duration:(NSTimeInterval)duration retryTimes:(NSInteger)retryTimes result:(void (^)(BOOL))sucess;
+- (nonnull instancetype)sendMessage:(nonnull NSData *)message duration:(NSTimeInterval)duration retryTimes:(NSInteger)retryTimes result:(nonnull void (^)(BOOL))sucess;
 
 /**
  监听外设返回消息
@@ -34,5 +34,5 @@
  @param valueDidUpdateBlock 回调闭包
  @return CBCharacteristic
  */
-- (instancetype)notifyValueDidUpdate:(void(^)(CBCharacteristic *characteristic,NSError * error)) valueDidUpdateBlock;
+- (nonnull instancetype)notifyValueDidUpdate:(nonnull void(^)(CBCharacteristic *characteristic,NSError * error)) valueDidUpdateBlock;
 @end

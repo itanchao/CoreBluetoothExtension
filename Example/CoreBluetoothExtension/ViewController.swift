@@ -13,6 +13,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        CBCentralManager().centralManagerDidUpdateState { (_) in
+            
+        }
+        CBCentralManager().centralManagerDidUpdateState { (_) in
+            
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 

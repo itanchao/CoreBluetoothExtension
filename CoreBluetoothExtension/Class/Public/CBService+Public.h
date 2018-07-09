@@ -8,7 +8,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 @interface CBService (Public)
-- (instancetype)disCovery:(CBUUID *)characteristicUUID
+- (nonnull instancetype)disCovery:(CBUUID *)characteristicUUID
                  duration:(NSTimeInterval)duration
-                 complete:(void(^)(CBCharacteristic *service))complete;
+                 complete:(nonnull void(^)(CBCharacteristic *service))complete;
 @end

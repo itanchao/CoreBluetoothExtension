@@ -14,7 +14,7 @@
 
  @param result 回调
  */
-- (void)disConnectionWithResulte:(void(^)(CBPeripheral *peripheral,NSError *error))result;
+- (void)disConnectionWithResulte:(nonnull void(^)(CBPeripheral *peripheral,NSError *error))result;
 
 /*!
  *  @method discoverServices:duration:complete:
@@ -25,7 +25,7 @@
  *  @see complete completeBlock service is nullable
  *  @return CBPeripheral
  */
-- (instancetype)disCovery:(CBUUID *)serviceUUID
+- (nonnull instancetype)disCovery:(nullable CBUUID *)serviceUUID
                  duration:(NSTimeInterval)duration
-                 complete:(void(^)(CBService *service))complete;
+                 complete:(nonnull void(^)(CBService *service))complete;
 @end

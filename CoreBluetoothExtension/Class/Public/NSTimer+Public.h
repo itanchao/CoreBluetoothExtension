@@ -17,7 +17,7 @@
  @param block block
  @return NSTimer
  */
-+(instancetype)after:(NSTimeInterval)interval block:(void(^_Nullable)(void))block;
++(nonnull instancetype)after:(NSTimeInterval)interval block:(void(^_Nullable)(void))block;
 
 /**
  Create and schedule a timer that will call `block` repeatedly in specified time intervals.
@@ -26,5 +26,5 @@
  @param block block
  @return NSTimer
  */
-+(instancetype)every:(NSTimeInterval)interval block:(void(^_Nullable)(NSTimer *timer))block;
++(nonnull instancetype)every:(NSTimeInterval)interval block:(void(^_Nullable)(NSTimer *timer))block;
 @end

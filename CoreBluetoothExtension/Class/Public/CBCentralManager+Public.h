@@ -60,4 +60,11 @@
  *
  */
 - (void)cancelPeripheralConnection:(CBPeripheral *)peripheral resulte:(void(^)(CBPeripheral *peripheral,NSError *error))result;
+
+/**
+ The central manager whose state has changed.
+
+ @param block closure
+ */
+- (void)centralManagerDidUpdateState:(void(^)(CBCentralManager *central))block;
 @end

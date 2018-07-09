@@ -16,6 +16,18 @@
 + (instancetype)newCentral{
      return [[self alloc] initWithDelegate:CBCentralManagerDelegate.sharedDelegate queue:dispatch_queue_create("com.ble.queue.ble", DISPATCH_QUEUE_SERIAL)];
 }
+- (void)centralManagerDidUpdateState:(void (^)(CBCentralManager *))block{
+    @weakify(self)
+    self.delegate = CBCentralManagerDelegate.sharedDelegate;
+    [[CBCentralManagerDelegate.sharedDelegate rac_signalForSelector:@selector(centralManagerDidUpdateState:)] subscribeNext:^(RACTuple * _Nullable x) {
+        @strongify(self)
+        if (block) {
+            block(self);
+        }
+    }];
+    // 手动触发一下
+    [self.delegate centralManagerDidUpdateState:self];
+}
 - (CBCentralManager *)scanForPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs options:(NSDictionary<NSString *,id> *)options duration:(NSTimeInterval)duration responseBlock:(void (^)(CBPeripheral *, NSDictionary<NSString *,id> *, NSNumber *, NSError *))responseBlock complete:(void (^)(void))complete{
     // 设置代理
     self.delegate = CBCentralManagerDelegate.sharedDelegate;
