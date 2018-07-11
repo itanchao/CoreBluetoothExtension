@@ -22,7 +22,9 @@
     [[CBCentralManagerDelegate.sharedDelegate rac_signalForSelector:@selector(centralManagerDidUpdateState:)] subscribeNext:^(RACTuple * _Nullable x) {
         @strongify(self)
         if (block) {
-            block(self);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(self);
+            });
         }
     }];
     // 手动触发一下
