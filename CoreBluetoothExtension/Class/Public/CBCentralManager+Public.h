@@ -66,5 +66,5 @@
 
  @param block closure
  */
-- (void)centralManagerDidUpdateState:(void(^)(CBCentralManager *central))block NS_SWIFT_NAME(didUpdateState(block:));
+- (void)centralManagerDidUpdateState:(void(^)( CBCentralManager * _Nonnull central))block NS_SWIFT_NAME(didUpdateState(block:));
 @end

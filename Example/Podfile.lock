@@ -1,5 +1,5 @@
 PODS:
-  - CoreBluetoothExtension (0.6.2):
+  - CoreBluetoothExtension (0.6.3):
     - ReactiveObjC
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
@@ -22,7 +22,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CoreBluetoothExtension: db167a9b53fe77b9761ce9b3b073dc81e9be2919
+  CoreBluetoothExtension: 7ff24a1a403184a7265308d3665d2dbc1ebd1914
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
 

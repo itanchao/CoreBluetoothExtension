@@ -10,11 +10,30 @@ import UIKit
 import CoreBluetoothExtension
 class ViewController: UIViewController {
     
+    let central = CBCentralManager.newCentral()
+    let centrale = CBCentralManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CBCentralManager().didUpdateState { (_) in
-            
+        centrale.didUpdateState { (p) in
+            print(p)
+        }
+        central.didUpdateState {
+            print($0)
+        }
+        centrale.scanForPeripherals(withServices: nil, options: nil, duration: 30, responseBlock: {q,w,e,r in
+            print(q)
+        }) {
+            print("stop")
+        }
+
+//        CBCentralManager().didUpdateState { (_) in
+//            
+//        }
+        central.scanForPeripherals(withServices: nil, options: nil, duration: 30, responseBlock: {q,w,e,r in
+            print(q)
+        }) {
+            print("stop")
         }
 //        CBCentralManager().centralManagerDidUpdateState { (_) in
 //            

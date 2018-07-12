@@ -21,7 +21,7 @@
     self.delegate = CBCentralManagerDelegate.sharedDelegate;
     [[CBCentralManagerDelegate.sharedDelegate rac_signalForSelector:@selector(centralManagerDidUpdateState:)] subscribeNext:^(RACTuple * _Nullable x) {
         @strongify(self)
-        if (block) {
+        if ([x.first isEqual:self] && block) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 block(self);
             });
@@ -44,9 +44,9 @@
     // 当蓝牙状态为打开的时候开始扫描
     @weakify(self)
     RACDisposable *disposable = [[RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-        @strongify(self)
-        RACDisposable *inner_disposer = [[CBCentralManagerDelegate.sharedDelegate rac_signalForSelector:@selector(centralManagerDidUpdateState:)] subscribeNext:^(id  _Nullable x) {
-            if (self.state == CBCentralManagerStatePoweredOn) {
+        RACDisposable *inner_disposer = [[CBCentralManagerDelegate.sharedDelegate rac_signalForSelector:@selector(centralManagerDidUpdateState:)] subscribeNext:^(RACTuple * _Nullable x) {
+            @strongify(self)
+            if ([x.first isEqual:self] && self.state == CBCentralManagerStatePoweredOn) {
                 [subscriber sendNext:nil];
                 [subscriber sendCompleted];
             }
