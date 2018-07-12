@@ -25,9 +25,7 @@
  *  @see            state
  *
  */
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central{
-    NSLog(@"%@======>%ld",central,central.state);
-}
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central{}
 
 
 /*!
