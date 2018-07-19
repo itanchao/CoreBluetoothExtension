@@ -34,5 +34,5 @@
  @param valueDidUpdateBlock 回调闭包
  @return CBCharacteristic
  */
-- (nonnull instancetype)notifyValueDidUpdate:(nonnull void(^)(CBCharacteristic *characteristic,NSError * error)) valueDidUpdateBlock;
+- (nonnull instancetype)notifyValueDidUpdate:(nullable void(^)(CBCharacteristic *characteristic,NSError * error)) valueDidUpdateBlock;
 @end

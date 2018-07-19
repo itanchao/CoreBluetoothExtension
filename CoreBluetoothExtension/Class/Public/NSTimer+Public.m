@@ -23,7 +23,7 @@
     }));
 }
 - (instancetype)_startRunloop{
-    [[NSRunLoop currentRunLoop] addTimer:self forMode: NSDefaultRunLoopMode];
+    [[NSRunLoop currentRunLoop] addTimer:self forMode: NSRunLoopCommonModes];
     return self;
 }
 @end

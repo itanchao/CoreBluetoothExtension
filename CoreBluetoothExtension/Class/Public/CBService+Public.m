@@ -30,10 +30,7 @@
     @weakify(timer)
     [self.discoverCharacteristicClosures setObject:^void(CBCharacteristic *characteristic) {
         @strongify(timer)
-        if (timer) {
-            [timer invalidate];
-            timer = nil;
-        }
+        [timer invalidate];
         @strongify(self)
         [self.discoverCharacteristicClosures removeObjectForKey:characteristicUUID.UUIDString];
         dispatch_async(dispatch_get_main_queue(), ^{

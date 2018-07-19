@@ -8,6 +8,7 @@
 #import "CBCharacteristic+Public.h"
 #import "CBCharacteristic+Private.h"
 #import "NSTimer+Public.h"
+#import "CBNSLog.h"
 @import ReactiveObjC;
 //static dispatch_semaphore_t match_sema;
 @implementation CBCharacteristic (Public)
@@ -54,17 +55,14 @@
             }];
             @weakify(timer)
             [self setSendMessageClosure:^(BOOL result) {
-                NSLog(@"写入%@====%@",[[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding],result?@"成功":@"失败");
+                CBNSLog(@"写入%@====%@",[[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding],result?@"成功":@"失败");
                 @strongify(self)
                 if (--retryTs >= 0 && !result) {
-                    NSLog(@"开始第%ld重写====%@",retryTimes - retryTs,[[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding]);
+                    CBNSLog(@"开始第%ld重写====%@",retryTimes - retryTs,[[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding]);
                     [self.service.peripheral writeValue:message forCharacteristic:self type:CBCharacteristicWriteWithResponse];
                 }else{
                     @strongify(timer)
-                    if (timer) {
-                        [timer invalidate];
-                        timer = nil;
-                    }
+                    [timer invalidate];
                     if (sucess) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             sucess(result);
@@ -78,7 +76,7 @@
                 }
             }];
         });
-        NSLog(@"开始写入==%@",[[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding]);
+        CBNSLog(@"开始写入==%@",[[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding]);
         if (self.service.peripheral.state != CBPeripheralStateConnected) {
             self.sendMessageClosure(NO);
         }else if (self.properties & CBCharacteristicPropertyWriteWithoutResponse) {

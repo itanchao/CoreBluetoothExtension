@@ -10,6 +10,7 @@
 #import "NSTimer+Public.h"
 #import "CBCentralManager+Private.h"
 #import "CBPeripheral+Private.h"
+#import "CBNSLog.h"
 @import ReactiveObjC;
 #import <ReactiveObjC/NSObject+RACSelectorSignal.h>
 @implementation CBCentralManager (Public)
@@ -78,14 +79,10 @@
             [inner_disposer dispose];
         }];
     }] subscribeNext:^(id  _Nullable x) {
-        
         @strongify(durationTimer)
         @strongify(self)
         [self setScanResultClosure:nil];
-        if (durationTimer) {
-            [durationTimer invalidate];
-            durationTimer = nil;
-        }
+        [durationTimer invalidate];
         if (complete) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 complete();
@@ -109,10 +106,7 @@
     @weakify(timer)
     [peripheral setConnectClosure:^(CBPeripheral *peripheral, NSError *error) {
         @strongify(timer)
-        if (timer) {
-            [timer invalidate];
-            timer = nil;
-        }
+        [timer invalidate];
         [peripheral setAutoConnect:YES];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (complete) {

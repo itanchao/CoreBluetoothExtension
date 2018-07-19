@@ -10,5 +10,5 @@
 @interface CBService (Public)
 - (nonnull instancetype)disCovery:(CBUUID *)characteristicUUID
                  duration:(NSTimeInterval)duration
-                 complete:(nonnull void(^)(CBCharacteristic *service))complete;
+                 complete:(nonnull void(^)(CBCharacteristic *characteristic))complete;
 @end

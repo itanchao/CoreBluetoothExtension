@@ -1,6 +1,6 @@
 {
   "name": "CoreBluetoothExtension",
-  "version": "0.6.3",
+  "version": "0.6.5",
   "summary": "A simple Extension for CoreBluetooth.",
   "description": "A simple Extension of CoreBluetooth.",
   "homepage": "https://github.com/itanchao/CoreBluetoothExtension",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/itanchao/CoreBluetoothExtension.git",
-    "tag": "0.6.3"
+    "tag": "0.6.5"
   },
   "platforms": {
     "ios": "8.0",
