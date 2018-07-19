@@ -117,6 +117,7 @@
     [self connectPeripheral:peripheral options:options];
 }
 - (void)cancelPeripheralConnection:(CBPeripheral *)peripheral resulte:(void (^)(CBPeripheral *, NSError *))result{
+    CBNSLog(@"开始断开链接***");
     peripheral.autoConnect = NO;
     if (peripheral.state == CBPeripheralStateDisconnected) {
         dispatch_async(dispatch_get_main_queue(), ^{

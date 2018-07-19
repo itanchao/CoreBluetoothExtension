@@ -7,6 +7,7 @@
 
 #import "CBCentralManagerDelegate.h"
 @import CoreBluetooth;
+#import "CBNSLog.h"
 #import "CBPeripheralDelegate.h"
 #import "CBCentralManager+Private.h"
 #import "CBPeripheral+Private.h"
@@ -119,7 +120,9 @@
  *
  */
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error{
+    CBNSLog(@"已经断开链接");
     if (peripheral.autoConnect) {
+        CBNSLog(@"开始重新链接");
         [central connectPeripheral:peripheral options:nil];
         return;
     }
