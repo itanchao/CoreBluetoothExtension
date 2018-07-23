@@ -133,7 +133,7 @@ pod 'CoreBluetoothExtension'
 
 ## Author
 
-itanchao, tanchao@mobike.com
+itanchao, itanchao@gmail.com
 
 ## License
 
