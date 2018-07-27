@@ -19,7 +19,7 @@
 }
 - (void)centralManagerDidUpdateState:(void (^)(CBCentralManager *))block{
     @weakify(self)
-    self.delegate = CBCentralManagerDelegate.sharedDelegate;
+    NSAssert(self.delegate == CBCentralManagerDelegate.sharedDelegate, @"please use [CBCentralManager newCentral] initialize");
     [[CBCentralManagerDelegate.sharedDelegate rac_signalForSelector:@selector(centralManagerDidUpdateState:)] subscribeNext:^(RACTuple * _Nullable x) {
         @strongify(self)
         if ([x.first isEqual:self] && block) {
@@ -33,7 +33,7 @@
 }
 - (CBCentralManager *)scanForPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs options:(NSDictionary<NSString *,id> *)options duration:(NSTimeInterval)duration responseBlock:(void (^)(CBPeripheral *, NSDictionary<NSString *,id> *, NSNumber *, NSError *))responseBlock complete:(void (^)(void))complete{
     // 设置代理
-    self.delegate = CBCentralManagerDelegate.sharedDelegate;
+    NSAssert(self.delegate == CBCentralManagerDelegate.sharedDelegate, @"please use [CBCentralManager newCentral] initialize");
     // 设置回调
     [self setScanResultClosure:^(CBPeripheral *peripheral, NSDictionary<NSString *,id> *advertisementData, NSNumber *RSSI, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -92,7 +92,7 @@
     return self;
 }
 - (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary<NSString *,id> *)options duration:(NSTimeInterval)duration complete:(void (^)(CBPeripheral *, NSError *))complete{
-    self.delegate = CBCentralManagerDelegate.sharedDelegate;
+    NSAssert(self.delegate == CBCentralManagerDelegate.sharedDelegate, @"please use [CBCentralManager newCentral] initialize");
     @weakify(self)
     NSTimer *timer = [NSTimer after:duration block:^{
         @strongify(self)

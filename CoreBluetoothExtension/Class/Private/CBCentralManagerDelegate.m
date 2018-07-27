@@ -81,6 +81,7 @@
  *
  */
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
+    CBNSLog(@"链接成功");
     [peripheral setCentralManager:central];
     [peripheral setDelegate:CBPeripheralDelegate.sharedDelegate];
     void (^connectClosure)(CBPeripheral *, NSError *) = [peripheral connectClosure];
