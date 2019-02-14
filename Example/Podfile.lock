@@ -1,5 +1,5 @@
 PODS:
-  - CoreBluetoothExtension (0.6.5):
+  - CoreBluetoothExtension (0.6.6):
     - ReactiveObjC
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
@@ -13,7 +13,7 @@ DEPENDENCIES:
   - FBSnapshotTestCase (~> 2.1.4)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - FBSnapshotTestCase
     - ReactiveObjC
 
@@ -22,10 +22,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CoreBluetoothExtension: 6b0a49a4b73e721e4e20357a6cc4cd0504e89a96
+  CoreBluetoothExtension: a8c6ba150c5a18d8491e87adeb88e38f81862512
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
 
 PODFILE CHECKSUM: f108609fd29c35ca32dfa488eb008478529570b4
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

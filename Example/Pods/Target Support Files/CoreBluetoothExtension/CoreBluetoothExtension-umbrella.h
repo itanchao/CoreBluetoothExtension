@@ -14,7 +14,7 @@
 #import "CBCharacteristic+Public.h"
 #import "CBPeripheral+Public.h"
 #import "CBService+Public.h"
-#import "NSTimer+Public.h"
+#import "CoreBluetoothExtension.h"
 
 FOUNDATION_EXPORT double CoreBluetoothExtensionVersionNumber;
 FOUNDATION_EXPORT const unsigned char CoreBluetoothExtensionVersionString[];

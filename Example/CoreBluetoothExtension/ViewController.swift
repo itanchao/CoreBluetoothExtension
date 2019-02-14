@@ -10,7 +10,7 @@ import UIKit
 import CoreBluetoothExtension
 class ViewController: UIViewController {
     
-    let central = CBCentralManager.newCentral()
+    let central = CBCentralManager.manager()
     let centrale = CBCentralManager()
     
     override func viewDidLoad() {
