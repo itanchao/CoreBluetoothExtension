@@ -11,6 +11,8 @@
 #import "CBPeripheralDelegate.h"
 #import "CBCentralManager+Private.h"
 #import "CBPeripheral+Private.h"
+#import "CBPeripheral+Public.h"
+#define CallBlockIfNotNil(__MBK_Block__, ...) { if (__MBK_Block__) __MBK_Block__(__VA_ARGS__); }
 @implementation CBCentralManagerDelegate
 /*!
  *  @method centralManagerDidUpdateState:
@@ -65,10 +67,7 @@
  *
  */
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI{
-    void (^closure)(CBPeripheral *, NSDictionary<NSString *,id> *, NSNumber *, NSError *) = [central scanResultClosure];
-    if (closure) {
-        closure(peripheral,advertisementData,RSSI,nil);
-    }
+    CallBlockIfNotNil(central.scanResultClosure,peripheral,advertisementData,RSSI,nil);
 }
 
 /*!
@@ -84,10 +83,7 @@
     CBNSLog(@"链接成功");
     [peripheral setCentralManager:central];
     [peripheral setDelegate:CBPeripheralDelegate.sharedDelegate];
-    void (^connectClosure)(CBPeripheral *, NSError *) = [peripheral connectClosure];
-    if (connectClosure) {
-        connectClosure(peripheral,nil);
-    }
+    CallBlockIfNotNil(peripheral.connectClosure,peripheral,nil);
 }
 
 /*!
@@ -102,10 +98,7 @@
  *
  */
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error{
-    void (^connectClosure)(CBPeripheral *, NSError *) = [peripheral connectClosure];
-    if (connectClosure) {
-        connectClosure(peripheral,error);
-    }
+    CallBlockIfNotNil(peripheral.connectClosure,peripheral,error);
 }
 
 /*!
@@ -127,10 +120,7 @@
         [central connectPeripheral:peripheral options:nil];
         return;
     }
-    void (^disconnectClosure)(CBPeripheral *, NSError *) = [peripheral disconnectClosure];
-    if (disconnectClosure) {
-        disconnectClosure(peripheral,error);
-    }
+    CallBlockIfNotNil(peripheral.disconnectClosure,peripheral,error);
 }
 
 +(nonnull instancetype)sharedDelegate{

@@ -7,28 +7,23 @@
 
 #import "CBCharacteristic+Public.h"
 #import "CBCharacteristic+Private.h"
-#import "NSTimer+Public.h"
 #import "CBNSLog.h"
-@import ReactiveObjC;
-//static dispatch_semaphore_t match_sema;
+#import <ReactiveObjC/ReactiveObjC.h>
+#define CallBlockIfNotNil(__MBK_Block__, ...) { if (__MBK_Block__) __MBK_Block__(__VA_ARGS__); }
 @implementation CBCharacteristic (Public)
 - (instancetype)notify:(void (^)(BOOL))sucess{
     if (self.isNotifying) {
-        if (sucess) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                sucess(YES);
-            });
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CallBlockIfNotNil(sucess,YES);
+        });
         return self;
     }
     @weakify(self)
     [self setNotifyClosure:^(BOOL b) {
         @strongify(self)
-        if (sucess) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                sucess(b);
-            });
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CallBlockIfNotNil(sucess,b);
+        });
         if (self) {
             [self setNotifyClosure:nil];
         }
@@ -43,17 +38,13 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             @weakify(self)
             __block NSInteger retryTs = retryTimes;
-            NSTimer *timer = [NSTimer after:duration block:^{
-                @strongify(self)
+            RACDisposable *timeOut = [RACScheduler.mainThreadScheduler afterDelay:duration schedule:^{
+               @strongify(self)
                 if (self) {
                     retryTs = 0;
-                    void(^sucess)(BOOL) = self.sendMessageClosure;
-                    if (sucess) {
-                        sucess(false);
-                    }
+                    CallBlockIfNotNil(self.sendMessageClosure,false);
                 }
             }];
-            @weakify(timer)
             [self setSendMessageClosure:^(BOOL result) {
                 CBNSLog(@"写入%@====%@",[[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding],result?@"成功":@"失败");
                 @strongify(self)
@@ -61,13 +52,10 @@
                     CBNSLog(@"开始第%ld重写====%@",retryTimes - retryTs,[[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding]);
                     [self.service.peripheral writeValue:message forCharacteristic:self type:CBCharacteristicWriteWithResponse];
                 }else{
-                    @strongify(timer)
-                    [timer invalidate];
-                    if (sucess) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            sucess(result);
-                        });
-                    }
+                    [timeOut dispose];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        CallBlockIfNotNil(sucess,result);
+                    });
                     dispatch_semaphore_signal(match_sema);
                     @strongify(self)
                     if (self) {
@@ -93,11 +81,9 @@
 }
 - (instancetype)notifyValueDidUpdate:(void (^)(CBCharacteristic *, NSError *))valueDidUpdateBlock{
     [self setNotifyValueDidUpdate:^(CBCharacteristic *cha, NSError *error) {
-        if (valueDidUpdateBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                valueDidUpdateBlock(cha,error);
-            });
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CallBlockIfNotNil(valueDidUpdateBlock,cha,error);    
+        });
     }];
     return self;
 }

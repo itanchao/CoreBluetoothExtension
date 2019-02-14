@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'CoreBluetoothExtension'
-  s.version          = '0.6.6'
+  s.version          = '0.6.8'
   s.summary          = 'A simple Extension for CoreBluetooth.'
   s.description      = <<-DESC
     A simple Extension of CoreBluetooth.
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '8.0'
   s.watchos.deployment_target = '4.0'
-  s.source_files = 'CoreBluetoothExtension/Class/**/*{.h,.m}'
-  s.public_header_files = 'CoreBluetoothExtension/Class/Public/**/*.h'
+  s.source_files = 'CoreBluetoothExtension/**/*{.h,.m}'
+  s.public_header_files = 'CoreBluetoothExtension/Public/**/*.h'
   s.dependency 'ReactiveObjC'
 end

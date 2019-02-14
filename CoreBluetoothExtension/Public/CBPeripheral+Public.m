@@ -8,8 +8,9 @@
 #import "CBPeripheral+Public.h"
 #import "CBPeripheral+Private.h"
 #import "CBCentralManager+Public.h"
-#import "NSTimer+Public.h"
-@import ReactiveObjC;
+#import <ReactiveObjC/ReactiveObjC.h>
+@import ObjectiveC;
+#define CallBlockIfNotNil(__MBK_Block__, ...) { if (__MBK_Block__) __MBK_Block__(__VA_ARGS__); }
 @implementation CBPeripheral (Public)
 - (void)disConnectionWithResulte:(void (^)(CBPeripheral *, NSError *))result{
     [self.centralManager cancelPeripheralConnection:self resulte:result];
@@ -18,43 +19,38 @@
     // serviceUUID 为nil，则不进行搜索
     if (serviceUUID == nil) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            complete(nil);
+            CallBlockIfNotNil(complete,nil);
         });
         return self;
     }
     
     @weakify(self)
-    NSTimer *timer = [NSTimer after:duration block:^{
+    RACDisposable *timeOut = [RACScheduler.mainThreadScheduler afterDelay:duration schedule:^{
         @strongify(self)
-        void(^discoveryClosure)(CBService *service) = self.discoverServiceClosures[serviceUUID.UUIDString];
-        if (discoveryClosure) {
-            discoveryClosure(nil);
-        }
+        CallBlockIfNotNil(self.discoverServiceClosures[serviceUUID.UUIDString],nil);
     }];
-    @weakify(timer)
     [self.discoverServiceClosures setObject:^void(CBService *ser) {
         @strongify(self)
         [[self discoverServiceClosures] removeObjectForKey:serviceUUID.UUIDString];
-        @strongify(timer)
-        if (timer) {
-            [timer invalidate];
-            timer = nil;
-        }
+        [timeOut dispose];
         dispatch_async(dispatch_get_main_queue(), ^{
-            complete(ser);
+            CallBlockIfNotNil(complete,ser);
         });
     } forKey:serviceUUID.UUIDString];
     
     for (CBService *ser in self.services) {
         if ([ser.UUID.UUIDString isEqualToString:serviceUUID.UUIDString]) {
-            void(^discoveryClosure)(CBService *service) = self.discoverServiceClosures[ser.UUID.UUIDString];
-            if (discoveryClosure) {
-                discoveryClosure(ser);
-            }
+            CallBlockIfNotNil(self.discoverServiceClosures[ser.UUID.UUIDString],ser);
             return self;
         }
     }
     [self discoverServices:@[serviceUUID]];
     return self;
+}
+- (BOOL)autoConnect{
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+- (void)setAutoConnect:(BOOL)autoConnect{
+    objc_setAssociatedObject(self, @selector(autoConnect), @(autoConnect), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 @end

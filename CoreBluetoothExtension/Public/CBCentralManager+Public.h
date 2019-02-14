@@ -8,8 +8,14 @@
 
 @import CoreBluetooth;
 @interface CBCentralManager (Public)
-// new一个蓝牙中心
-+ (nonnull instancetype)newCentral NS_SWIFT_NAME(newCentral());
+///---------------------
+/// @name Initialization
+///---------------------
+
+/**
+ Creates and returns an `CBCentralManager` object.
+ */
++ (nonnull instancetype)manager NS_SWIFT_NAME(manager());
 
 /*!
  *  @method scanForPeripheralsWithServices:options:duration:responseBlock:complete:

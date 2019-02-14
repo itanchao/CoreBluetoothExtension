@@ -44,10 +44,4 @@
 - (CBCentralManager *)centralManager{
     return objc_getAssociatedObject(self, _cmd);
 }
-- (BOOL)autoConnect{
-    return [objc_getAssociatedObject(self, _cmd) boolValue];
-}
-- (void)setAutoConnect:(BOOL)autoConnect{
-    objc_setAssociatedObject(self, @selector(autoConnect), @(autoConnect), OBJC_ASSOCIATION_ASSIGN);
-}
 @end

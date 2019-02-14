@@ -8,13 +8,17 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 @interface CBPeripheral (Public)
+/**
+ 是否需要手动重连
+ */
+@property (nonatomic, assign) BOOL autoConnect;
 
 /**
  取消连接
 
  @param result 回调
  */
-- (void)disConnectionWithResulte:(nonnull void(^)(CBPeripheral *peripheral,NSError *error))result;
+- (void)disConnectionWithResulte:(void(^)(CBPeripheral *peripheral,NSError *error))result;
 
 /*!
  *  @method discoverServices:duration:complete:

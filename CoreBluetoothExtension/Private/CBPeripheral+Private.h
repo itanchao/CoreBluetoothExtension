@@ -16,9 +16,5 @@
 @property (nonatomic, strong) NSMutableDictionary<NSString *,void(^)(CBService *service)> *discoverServiceClosures;
 
 @property (nonatomic, weak) CBCentralManager *centralManager;
-/**
- 是否需要手动重连
- */
-@property (nonatomic, assign) BOOL autoConnect;
 
 @end

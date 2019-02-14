@@ -9,6 +9,7 @@
 #import "CBPeripheral+Private.h"
 #import "CBService+Private.h"
 #import "CBCharacteristic+Private.h"
+#define CallBlockIfNotNil(__MBK_Block__, ...) { if (__MBK_Block__) __MBK_Block__(__VA_ARGS__); }
 @implementation CBPeripheralDelegate
 
 /*!
@@ -61,10 +62,7 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(nullable NSError *)error{
     for (CBService *ser in peripheral.services) {
-        void(^discoveryClosure)(CBService *service) = [peripheral discoverServiceClosures][ser.UUID.UUIDString];
-        if (discoveryClosure) {
-            discoveryClosure(ser);
-        }
+        CallBlockIfNotNil(peripheral.discoverServiceClosures[ser.UUID.UUIDString],ser);
     }
 }
 
@@ -94,10 +92,7 @@
  */
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(nullable NSError *)error{
     for (CBCharacteristic *characteristic in service.characteristics) {
-        void(^discoveryClosure)(CBCharacteristic *service) = service.discoverCharacteristicClosures[characteristic.UUID.UUIDString];
-        if (discoveryClosure) {
-            discoveryClosure(characteristic);
-        }
+        CallBlockIfNotNil(service.discoverCharacteristicClosures[characteristic.UUID.UUIDString],characteristic);
     }
 }
 
@@ -111,10 +106,7 @@
  *  @discussion                This method is invoked after a @link readValueForCharacteristic: @/link call, or upon receipt of a notification/indication.
  */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error{
-   void (^notifyValueDidUpdate)(CBCharacteristic *, NSError *) = characteristic.notifyValueDidUpdate;
-    if (notifyValueDidUpdate) {
-        notifyValueDidUpdate(characteristic,error);
-    }
+    CallBlockIfNotNil(characteristic.notifyValueDidUpdate,characteristic,error);
 }
 
 /*!
@@ -127,10 +119,7 @@
  *  @discussion                This method returns the result of a {@link writeValue:forCharacteristic:type:} call, when the <code>CBCharacteristicWriteWithResponse</code> type is used.
  */
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error{
-    void (^sendMessageClosure)(BOOL) = characteristic.sendMessageClosure;
-    if (sendMessageClosure) {
-        sendMessageClosure(error == nil);
-    }
+    CallBlockIfNotNil(characteristic.sendMessageClosure,error == nil);
 }
 
 /*!
@@ -143,10 +132,7 @@
  *  @discussion                This method returns the result of a @link setNotifyValue:forCharacteristic: @/link call.
  */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error{
-    void (^notifyClosure)(BOOL) = characteristic.notifyClosure;
-    if (notifyClosure) {
-        notifyClosure(characteristic.isNotifying);
-    }
+    CallBlockIfNotNil(characteristic.notifyClosure,characteristic.isNotifying);
 }
 
 /*!
